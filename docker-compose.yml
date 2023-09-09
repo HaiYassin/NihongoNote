@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  
+  client:
+    container_name: nihongo_note_client
+    restart: always
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    stdin_open: true
+    tty: true
+
+  server:
+    container_name: nihongo_note_node
+    build: ./server
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/app
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=local_user
+      - MONGO_INITDB_ROOT_PASSWORD=Password123
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: nihongo_note_mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb_data_cont:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=localhost
+      - MONGO_INITDB_ROOT_USERNAME=local_user
+      - MONGO_INITDB_ROOT_PASSWORD=Password123
+
+volumes:
+  mongodb_data_cont:
