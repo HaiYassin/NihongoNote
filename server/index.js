@@ -6,10 +6,9 @@ import userInfo from "./models/userinfo.js"
 
 const app = Express();
 
-const usernameDb = process.env.MONGO_INITDB_ROOT_USERNAME || 'default_user';
-const passwordDb = process.env.MONGO_INITDB_ROOT_PASSWORD || 'defautPassword123';
+const usernameDb = process.env.MONGO_INITDB_ROOT_USERNAME;
+const passwordDb = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
-// const database = "mongodb://localhost:27017/ninhongo_note";
 const database = `mongodb://${usernameDb}:${passwordDb}@mongo:27017`;
 
 
